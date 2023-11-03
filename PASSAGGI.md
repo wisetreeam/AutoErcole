@@ -17,7 +17,7 @@ Le modifiche da prendere in considerazione sono le seguenti:
 - Python 3.6 invece di Python 3.5, poiché JigsawCNN è stato testato su questa versione.
 ---
 ### Passo 1: Configura CUDA Toolkit 9.0
-Segui la guida sottostante (reperibile a pagina 16 della documentazione ufficiale: [url](https://developer.download.nvidia.com/compute/cuda/9.0/Prod/docs/sidebar/CUDA_Quick_Start_Guide.pdf))
+Segui la guida sottostante (reperibile a pagina 16 della [documentazione ufficiale](https://developer.download.nvidia.com/compute/cuda/9.0/Prod/docs/sidebar/CUDA_Quick_Start_Guide.pdf))
 ![image](https://github.com/wisetreeam/AutoErcole/assets/74073441/3192367b-f61a-4eac-8ef6-3c6a8823a9b5)
 ---
 ### Passo 2: Configura cuDNN 7.0
