@@ -29,4 +29,6 @@ Segui la guida sottostante (reperibile a pagina 5 della [documentazione ufficial
 ![image](https://github.com/wisetreeam/AutoErcole/assets/74073441/8d3bb1aa-2fe0-4057-a96a-d97327787b59)
 
 ---
-### Passo 3: 
+### Passo 3: Installa Python 3.6.0
+
+### Passo 4: Proseguimento su guida precedentemente elencata
