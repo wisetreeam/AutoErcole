@@ -11,7 +11,6 @@ There are some of reassembly results from various public datasets and our own da
 
 
 
-
 ## 1. Prerequisites
 
 We have tested this code on Windows10 x64 operation system.
@@ -31,94 +30,6 @@ You should install below software or libraries to run global reassembly part.
 Other version of those dependencies/libraries have not tested.
 
 If you want to compile or run this code on different OS or environments, a few of modifications will be needed.
-
----
-### Installazione dependencies - required versions
-
-#### > CUDA 9.0 e cuDNN 7.0
-Installiamo innanzitutto **CUDA Toolkit 9.0** dal seguente link: https://developer.nvidia.com/cuda-90-download-archive?target_os=Windows&target_arch=x86_64&target_version=10
-
-Ad installazione completata procediamo scaricando **cuDNN 7.0** dal seguente archivio: https://developer.nvidia.com/rdp/cudnn-archive
-
-> N.B.: Occorre avere un account *NVIDIA Developer* per effettuare il download.
-
-Una volta installato anche cuDNN 7.0, andiamo a cercare la cartella in cui CUDA si è scaricato; provare a guardare su Program Files (per piattaforme Windows), ad esempio: `"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3"`.
-
-Non appena questa è stata individuata aprire `"cudnn-9.0-windows10-x64-v7>cuda"` e copiare i file contenuti nelle cartelle `"bin"`, `"include"` e `"lib"` nelle corrispettive contenute in 
-`"NVIDIA GPU Computing Toolkit\CUDA\v12.3"`.
-
-#### > Bazel v0.10.0 e Tensorflow v1.7.0
-Prima di installare Tensorflow 1.7.0 è necessario installare una sau dependency, **bazel**. Per farlo basta digitare quanto segue su terminale:
-
-```console
-choco install bazel --version 0.10.0-rc8 --pre -y
-```
-Una volta fatto è possibile scaricare Tensorflow v1.7.0 dal seguente link: https://github.com/tensorflow/tensorflow/releases/tag/v1.7.0
-
-
-Apri la cartella ```tensorflow-1.7.0``` su VS Code e digita in console: 
-
-```
-python ./configure.py
-``` 
-
-Inizierà così il setup su console guidato di **tensorflow**:
-``` 
-$ python configure.py
-WARNING: current bazel installation is not a release version.
-Make sure you are running at least bazel 0.10.0
-Please specify the location of python. [Default is C:\Python27\python.exe]: <ENTER>
-
-
-Found possible Python library paths:
-  C:\Python27\lib\site-packages
-Please input the desired Python library path to use.  Default is [C:\Python27\lib\site-packages] <ENTER>
-
-Do you wish to build TensorFlow with XLA JIT support? [y/N]: n
-No XLA JIT support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with GDR support? [y/N]: n
-No GDR support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with VERBS support? [y/N]: y
-VERBS support will be enabled for TensorFlow.
-
-Do you wish to build TensorFlow with CUDA support? [y/N]: y
-CUDA support will be enabled for TensorFlow.
-
-Please specify the CUDA SDK version you want to use, e.g. 7.0. [Leave empty to default to CUDA 9.0]: <ENTER>
-
-
-Please specify the location where CUDA 9.0 toolkit is installed. Refer to README.md for more details. [Default is C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3]: <ENTER>
-
-
-Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 7.0]: <ENTER>
-
-
-Please specify the location where cuDNN 7 library is installed. Refer to README.md for more details. [Default is C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.3]: <ENTER>
-
-
-Please specify a list of comma-separated Cuda compute capabilities you want to build with.
-You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.
-Please note that each additional compute capability significantly increases your build time and binary size. [Default is: 3.5,5.2] <ENTER>
-
-
-Do you wish to build TensorFlow with MPI support? [y/N]: n
-No MPI support will be enabled for TensorFlow.
-
-Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native]: <ENTER>     
-
-
-Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]: n
-Not configuring the WORKSPACE for Android builds.
-
-Preconfigured Bazel build configs. You can use any of the below by adding "--config=<>" to your build command. See tools/bazel.rc for more 
-details.
-        --config=mkl            # Build with MKL support.
-        --config=monolithic     # Config for mostly static monolithic build.
-``` 
-
-TO BE CONTINUED...
 
 --- 
 
