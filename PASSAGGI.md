@@ -30,10 +30,25 @@ Segui la guida sottostante (reperibile a pagina 5 della [documentazione ufficial
 
 ---
 ### Passo 3: Installa Python 3.6.0
-Installa i pacchetti richiesti da Python con il seguente comando:
+
+> Andremo ad installare Python 3.6.0 da sorgente
+
+(3.1) Installa i pacchetti richiesti da Python con il seguente comando:
 ```bash
-- sudo apt-get install libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libssl-dev libsqlite3-dev tk-dev
+sudo apt-get install libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libssl-dev libsqlite3-dev tk-dev
 ```
-
-
+(3.2) Installa Python dal link indicato nell'incipit della guida.
+(3.3) Scompatta l'archivio .tgz con il seguente comando:
+```bash
+tar -zxvf python3.6.0.tgz
+```
+(3.4) Entra nella cartella appena estratta:
+```bash
+cd python3.6.1/
+```
+(3.5) Compila il codice
+```bash
+./configure
+sudo make altinstall
+```
 ### Passo 4: Proseguimento su guida precedentemente elencata
