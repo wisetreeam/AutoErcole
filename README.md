@@ -20,7 +20,6 @@ To globally reassemble, we designed a loop-based composition to calculate consis
 Below dependencies are necessary to run pairwise compatibility measurement module.
 * Python 3.6
 * Tensorflow 1.7.0 and its dependencies
-> Versions history here: https://www.gitclear.com/open_repos/tensorflow/tensorflow/releases?page=7
 
 You should install below software or libraries to run global reassembly part.
 * OpenCV 3.4.1
