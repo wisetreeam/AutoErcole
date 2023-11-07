@@ -1,20 +1,25 @@
-# Tentativi configurazione progetto
+# Tentativo nr. 2 configurazione progetto
 
-### Passo 0: Installa Tensorflow 1.7.0 
-Link: [https://www.gitclear.com/open_repos/tensorflow/tensorflow/release/v1.7.0](url))
+L'obiettivo di questa prima parte di guida è quello di eseguire il file ```boost.py``` che, da quanto dichiarato nel README.md della repo, è il responsabile dell'allenamento ed esecuzione della rete neurale che effettua l'accoppiamento dei vari frammenti.
 
-Guida di riferimento da qui in poi: [https://medium.com/repro-repo/speed-up-learning-by-building-tensorflow-gpu-from-source-on-ubuntu-d03bb4e06b23](url)
+=== 07/11/2023 ===
+
+In una seconda parte, se necessario, verrà indicato come configurare correttamente la parte della repo in C++ (visto che è previsto l'inserimento di librerie come OpenCV ed Eigen), il GlobalReassembly, addetto alla ricostruzione dell'intera immagine a partire dalle coppie di frammenti precedentemente prodotti.
+
+---
+
+Guida di **medium.com** presa come riferimento per la configurazione della prima parte da qui in poi: [https://medium.com/repro-repo/speed-up-learning-by-building-tensorflow-gpu-from-source-on-ubuntu-d03bb4e06b23](url)
 
 La configurazione inizia installando tutte le dipendenze richieste nella prima parte della guida (con alcune modifiche di seguito riportate), ossia:
-- Python 3.5 (3.6 untested but possible) - [https://www.python.org/downloads/release/python-360/](url)
+- Python 3.5 (3.6 non testato ma possibile) - [https://www.python.org/downloads/release/python-360/](url)
 - CUDA Toolkit 9.0 - [https://developer.nvidia.com/cuda-90-download-archive](url)
 - cuDNN 7.0 - [https://developer.nvidia.com/rdp/cudnn-archive](url)
 - CUDA Compute 6.1
 - Ubuntu 16.04
 
-Le modifiche da prendere in considerazione sono le seguenti:
+**Le modifiche da prendere in considerazione sono le seguenti**:
 - Ubuntu 22.04.3 LTS invece di Ubuntu 16.04, poiché per lavorare su Linux abbiamo scelto di usare un WSL (Windows Subsystem for Linux);
-- Python 3.6 invece di Python 3.5, poiché JigsawCNN è stato testato su questa versione.
+- Python 3.6 invece di Python 3.5, poiché la rete neurale di JigsawCNN è stata configurata e testata con questa versione.
 
 ---
 ### Passo 1: Configura CUDA Toolkit 9.0
@@ -38,17 +43,119 @@ Segui la guida sottostante (reperibile a pagina 5 della [documentazione ufficial
 sudo apt-get install libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libssl-dev libsqlite3-dev tk-dev
 ```
 (3.2) Installa Python dal link indicato nell'incipit della guida.
+
 (3.3) Scompatta l'archivio .tgz con il seguente comando:
 ```bash
 tar -zxvf python3.6.0.tgz
 ```
 (3.4) Entra nella cartella appena estratta:
 ```bash
-cd python3.6.1/
+cd python3.6.0/
 ```
 (3.5) Compila il codice
 ```bash
 ./configure
 sudo make altinstall
 ```
-### Passo 4: Proseguimento su guida precedentemente elencata
+
+---
+### Passo 4: Installa Bazel
+Bazel è un tool fondamentale per buildare correttamente Tensorflow. Andremo ad installare la versione 0.11.1, come specificato dalla guida di Medium.
+
+```bash
+wget https://github.com/bazelbuild/bazel/releases/download/0.11.1/bazel_0.11.1-linux-x86_64.deb
+
+sudo dpkg -i bazel_0.11.1-linux-x86_64.deb
+```
+
+---
+### Passo 5: Installa Tensorflow 1.7.0
+
+Clona l'intera repo di Tensorflow da Github con il seguente comando:
+```bash
+git clone https://github.com/tensorflow/tensorflow
+cd tensorflow
+```
+Ottieni la versione desiderata (nel nostro caso 1.7.0) con:
+```bash
+git checkout r1.9
+```
+
+---
+### Passo 6: Installa i pacchetti necessari per Python
+```bash
+sudo apt-get install python3-numpy python3-dev python3-pip python3-wheel
+```
+
+---
+### Passo 7: Configura Bazel
+
+Avvia la configurazione di Bazel:
+```bash
+./configure
+```
+
+Usa le seguenti opzioni:
+```console
+WARNING: --batch mode is deprecated. Please instead explicitly shut down your Bazel server using the command "bazel shutdown".
+You have bazel 0.15.2 installed.
+Please specify the location of python. [Default is /usr/bin/python]: /usr/bin/python3
+Found possible Python library paths:
+  /usr/local/lib/python3.5/dist-packages
+  /usr/lib/python3/dist-packages
+Please input the desired Python library path to use.  Default is [/usr/local/lib/python3.5/dist-packages]
+Do you wish to build TensorFlow with jemalloc as malloc support? [Y/n]: 
+jemalloc as malloc support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with Google Cloud Platform support? [Y/n]: n
+No Google Cloud Platform support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with Hadoop File System support? [Y/n]: n
+No Hadoop File System support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with Amazon S3 File System support? [Y/n]: n
+No Amazon S3 File System support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with Apache Kafka Platform support? [Y/n]: n
+No Apache Kafka Platform support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with XLA JIT support? [y/N]:  
+No XLA JIT support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with GDR support? [y/N]: 
+No GDR support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with VERBS support? [y/N]: 
+No VERBS support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with OpenCL SYCL support? [y/N]: 
+No OpenCL SYCL support will be enabled for TensorFlow.
+Do you wish to build TensorFlow with CUDA support? [y/N]: y
+CUDA support will be enabled for TensorFlow.
+Please specify the CUDA SDK version you want to use. [Leave empty to default to CUDA 9.0]: 9.2
+Please specify the location where CUDA 9.2 toolkit is installed. Refer to README.md for more details. [Default is /usr/local/cuda]:
+Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 7.0]: 7.1
+Please specify the location where cuDNN 7 library is installed. Refer to README.md for more details. [Default is /usr/local/cuda]:
+Do you wish to build TensorFlow with TensorRT support? [y/N]: 
+No TensorRT support will be enabled for TensorFlow.
+Please specify the NCCL version you want to use. [Leave empty to default to NCCL 1.3]:
+Please specify a list of comma-separated Cuda compute capabilities you want to build with.
+You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.
+Please note that each additional compute capability significantly increases your build time and binary size. [Default is: 3.5,5.2]6.1
+Do you want to use clang as CUDA compiler? [y/N]: 
+nvcc will be used as CUDA compiler.
+Please specify which gcc should be used by nvcc as the host compiler. [Default is /usr/bin/gcc]:
+Do you wish to build TensorFlow with MPI support? [y/N]: 
+No MPI support will be enabled for TensorFlow.
+Please specify optimization flags to use during compilation when bazel option "--config=opt" is specified [Default is -march=native]:
+Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]: 
+Not configuring the WORKSPACE for Android builds.
+Preconfigured Bazel build configs. You can use any of the below by adding "--config=<>" to your build command. See tools/bazel.rc for more details.
+ --config=mkl          # Build with MKL support.
+ --config=monolithic   # Config for mostly static monolithic build.
+Configuration finished
+```
+---
+### Passo 8: Compila Bazel
+
+Utilizza il seguente comando con le seguenti opzioni per compilare Bazel:
+```bash
+bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.1 --copt=-msse4.2 -k //tensorflow/tools/pip_package:build_pip_package --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0"
+```
+
+Da qui un primo errore viene riscontrato: il pacchetto ```python3-numpy``` precedentemente installato da ```apt-get install``` non viene trovato.
+La correzione è stata apportata localizzando la cartella corretta dei pacchetti python, e da qui un errore diverso: ```numpy``` ora è raggiungibile, ma alcuni suoi componenti no.
+
+Mancano due passaggi dalla corretta configurazione di Tensorflow, ancora non raggiunta.
