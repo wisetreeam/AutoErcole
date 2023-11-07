@@ -30,5 +30,10 @@ Segui la guida sottostante (reperibile a pagina 5 della [documentazione ufficial
 
 ---
 ### Passo 3: Installa Python 3.6.0
+Installa i pacchetti richiesti da Python con il seguente comando:
+```bash
+- sudo apt-get install libbz2-dev libc6-dev libgdbm-dev libncursesw5-dev libreadline-gplv2-dev libssl-dev libsqlite3-dev tk-dev
+```
+
 
 ### Passo 4: Proseguimento su guida precedentemente elencata
